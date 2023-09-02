@@ -1,0 +1,28 @@
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<div th:each="status: ${statuses}" class="card">
+    <div class="card-body">
+        <div class="d-flex">
+            <img src="https://via.placeholder.com/48" alt="User Avatar" class="rounded-circle me-3" width="48" height="48">
+            <div>
+                <h5 class="card-title mb-0" th:text="${status.userDisplayName()}"/>
+                <p class="card-text text-muted" th:text="${status.userHandle()}"/>
+            </div>
+        </div>
+        <p class="card-text mt-3" th:text="${status.content()}"/>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <button class="btn btn-outline-primary"><i class="bi bi-heart"></i> Like</button>
+            <button class="btn btn-outline-secondary"><i class="bi bi-chat"></i> Comment</button>
+            <button class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
+        </div>
+    </div>
+</div>
+<div class="card" id="replaceMe">
+    <button
+            th:hx-get="${link}"
+            hx-target="#replaceMe"
+            hx-swap="outerHTML"
+            class="btn btn-outline-primary">Load More...
+        <img class="htmx-indicator"src="/spinner.gif"/>
+    </button>
+</div>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <title>My Feed</title>
+    <script src="https://unpkg.com/htmx.org@1.9.5" integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Feed</h1>
+    <div th:each="status: ${statuses}" class="card">
+        <div class="card-body">
+            <div class="d-flex">
+                <img src="https://via.placeholder.com/48" alt="User Avatar" class="rounded-circle me-3" width="48" height="48">
+                <div>
+                    <h5 class="card-title mb-0" th:text="${status.userDisplayName()}"/>
+                    <p class="card-text text-muted" th:text="${status.userHandle()}"/>
+                </div>
+            </div>
+            <p class="card-text mt-3" th:text="${status.content()}"/>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <button class="btn btn-outline-primary"><i class="bi bi-heart"></i> Like</button>
+                <button class="btn btn-outline-secondary"><i class="bi bi-chat"></i> Comment</button>
+                <button class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="card" id="replaceMe">
+        <button
+                hx-get="/statuses?page=2"
+                hx-target="#replaceMe"
+                hx-swap="outerHTML"
+                class="btn btn-outline-primary">Load More...
+                <img class="htmx-indicator"src="/spinner.gif"/>
+        </button>
+    </div>
+</div>
+</body>
+</html>
